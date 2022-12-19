@@ -2,31 +2,18 @@
 // script.src = "https://unpkg.com/object-exporter@3.2.1/dist/objectexporter.min.js";
 // document.getElementsByTagName('head')[0].appendChild(script);
 
+const observer = new MutationObserver(function(){console.log('hello')});
+const config = { childList: true};
+
 const btn = document.querySelector('[data-testid="table-pager-next"]')
 const table = document.querySelector('tbody')
-const tableArray = []
-const config = { childList: true };
-const exportData = [];
+const tableArray = [];
+
 
 async function getGiftcards (){
 
-
-// const callback = (mutationList, observer) => {
-//     for (const mutation of mutationList) {
-//       if (mutation.type === 'childList') {
-//         console.log('A child node has been added or removed.');
-//       } 
-//       else {
-//         observer.disconnect();
-//       }
-     
-//     }
-//   };
-
-  if (btn.disabled == false){
+if (btn.disabled == false){
     await console.log("btn is enabled")
-    // const observer = new MutationObserver(callback);
-    // observer.observe(table, config);
     await tableArray.push(table)
     await btn.click();
    await  getGiftcards()
@@ -34,16 +21,14 @@ async function getGiftcards (){
 else {
    await tableArray.push(table)
    await console.log("btn is disabled")
-//    observer.disconnect();
+}
 }
 
-tableArray.forEach(table => exportData.push(table.children))
-}
 getGiftcards()
 
 
-// observer.disconnect();
 
 
+observer.observe(table, config);
 
-
+observer.disconnect();
