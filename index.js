@@ -1,27 +1,29 @@
-// var script = document.createElement('script');
-// script.src = "https://unpkg.com/object-exporter@3.2.1/dist/objectexporter.min.js";
-// document.getElementsByTagName('head')[0].appendChild(script);
-
-const observer = new MutationObserver(function(){console.log('hello')});
-const config = { childList: true};
 
 const btn = document.querySelector('[data-testid="table-pager-next"]')
 const table = document.querySelector('tbody')
 const tableArray = [];
 
+const observer = new MutationObserver(function(){
+   console.log('hello')
+   tableArray.push(table)
+}); 
+
+const config = { childList: true};
+
+
 
 async function getGiftcards (){
 
 if (btn.disabled == false){
+   await btn.click();
     await console.log("btn is enabled")
-    await tableArray.push(table)
-    await btn.click();
+   observer.observe(table, config);
    await  getGiftcards()
 }
 else {
-   await tableArray.push(table)
    await console.log("btn is disabled")
 }
+
 }
 
 getGiftcards()
@@ -29,6 +31,12 @@ getGiftcards()
 
 
 
-observer.observe(table, config);
+
 
 observer.disconnect();
+
+
+
+//zolang de button niet disabled is wel je de table data pushen naar array
+
+//mutatioon observer checkt of er iets (children) veranderen op de pagina, als een child verandert wil je deze pushen naar array
