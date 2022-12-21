@@ -4,16 +4,16 @@ script.src =
    "https://unpkg.com/object-exporter@3.2.1/dist/objectexporter.min.js";
 document.getElementsByTagName("head")[0].appendChild(script);
 
-const btn = document.querySelector('[data-testid="table-pager-next"]');
-const table = document.querySelector("tbody");
-const giftcards = [];
-const exportData =[];
+let btn = document.querySelector('[data-testid="table-pager-next"]');
+let table = document.querySelector("tbody");
+let giftcards = [];
+let exportData =[];
 
 const config = {
    childList: true,
 };
 
-const observer = new MutationObserver(() => getGiftcards());
+let observer = new MutationObserver(() => getGiftcards());
 
 observer.observe(table, config)
 
@@ -41,7 +41,7 @@ function nextPage() {
 
 async function exportToCvc() {
    await giftcards.forEach((giftcard) => {
-      giftcard.children.forEach((child) => exportData.push({child}));
+      giftcard.children.forEach((child) => exportData.push(child.innerText));
     });
 
    await objectExporter({
@@ -58,7 +58,7 @@ async function exportToCvc() {
    })
 }
 
-// const newArray = []
+// elke column van een rij moet in een object komen
 // exportData.forEach(data => newArray.push(data.child.innerText))
 
 
