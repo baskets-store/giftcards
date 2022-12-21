@@ -7,7 +7,15 @@ document.getElementsByTagName("head")[0].appendChild(script);
 let btn = document.querySelector('[data-testid="table-pager-next"]');
 let table = document.querySelector("tbody");
 let giftcards = [];
-let exportData =[];
+let exportData = [];
+
+const date = new Date();
+
+let day = date.getDate();
+let month = date.getMonth() + 1;
+let year = date.getFullYear();
+
+const fileName = `export-cadeaubonnen-${day}-${month}-${year}`;
 
 const config = {
    childList: true,
@@ -41,13 +49,20 @@ function nextPage() {
 
 async function exportToCvc() {
    await giftcards.forEach((giftcard) => {
-      giftcard.children.forEach((child) => exportData.push(child.innerText));
-    });
+      giftcard.children.forEach(row => exportData.push({
+         "Cadeauboncode": `'${row.children[0].innerText}`,
+         "Activeringsdatum": row.children[1].innerText,
+         "Status": row.children[2].innerText,
+         "Order-ID": row.children[3].innerText,
+         "Saldo": row.children[4].innerText
+
+      }))
+   })
 
    await objectExporter({
       exportable: exportData,
       type: "xls",
-      fileName: "test",
+      fileName: fileName,
       headers: [
          "Cadeauboncode",
          "Activeringsdatum",
@@ -57,8 +72,3 @@ async function exportToCvc() {
       ],
    })
 }
-
-// elke column van een rij moet in een object komen
-// exportData.forEach(data => newArray.push(data.child.innerText))
-
-
