@@ -1,3 +1,5 @@
+//bookmarklet version
+
 var script = document.createElement("script");
 script.src =
    "https://unpkg.com/object-exporter@3.2.1/dist/objectexporter.min.js";
@@ -17,24 +19,24 @@ let year = date.getFullYear();
 const fileName = `export-cadeaubonnen-${day}-${month}-${year}`;
 
 const config = {
-   childList: true,
+   childList: true
 };
 
+
 let observer = new MutationObserver(() => getGiftcards());
+document.observer.observe(table, config);
 
-observer.observe(table, config);
-
-function getGiftcards() {
+async function getGiftcards() {
    if (table.querySelector('a')) {
       giftcards.push(table);
       if (btn.disabled == false) {
          nextPage();
       } else {
          exportToCvc()
-      }
+      };
    } else {
       console.log("skip the skeleton");
-   }
+   };
 };
 
 getGiftcards();
@@ -48,11 +50,9 @@ async function nextPage() {
          "Status": row.children[2].innerText,
          "Order-ID": row.children[3].innerText,
          "Saldo": row.children[4].innerText
-
       }));
    });
    btn.click();
-
 };
 
 
@@ -66,10 +66,7 @@ async function exportToCvc() {
          "Activeringsdatum",
          "Status",
          "Order-ID",
-         "Saldo",
-      ],
+         "Saldo"
+      ]
    });
 };
-
-
-

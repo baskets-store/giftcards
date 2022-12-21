@@ -17,7 +17,7 @@ let year = date.getFullYear();
 const fileName = `export-cadeaubonnen-${day}-${month}-${year}`;
 
 const config = {
-   childList: true,
+   childList: true
 };
 
 let observer = new MutationObserver(() => getGiftcards());
@@ -31,10 +31,10 @@ function getGiftcards() {
          nextPage();
       } else {
          exportToCvc()
-      }
+      };
    } else {
       console.log("skip the skeleton");
-   }
+   };
 };
 
 getGiftcards();
@@ -48,7 +48,6 @@ async function nextPage() {
          "Status": row.children[2].innerText,
          "Order-ID": row.children[3].innerText,
          "Saldo": row.children[4].innerText
-
       }));
    });
    btn.click();
