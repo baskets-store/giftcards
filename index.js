@@ -1,4 +1,3 @@
-//script for export tool
 var script = document.createElement("script");
 script.src =
    "https://unpkg.com/object-exporter@3.2.1/dist/objectexporter.min.js";
@@ -23,42 +22,41 @@ const config = {
 
 let observer = new MutationObserver(() => getGiftcards());
 
-observer.observe(table, config)
+observer.observe(table, config);
 
 function getGiftcards() {
    if (table.querySelector('a')) {
-      giftcards.push(table)
+      giftcards.push(table);
       if (btn.disabled == false) {
          nextPage();
       } else {
          exportToCvc()
       }
    } else {
-      console.log("skeleton, a isnt here")
+      console.log("skip the skeleton");
    }
-
-}
+};
 
 getGiftcards();
 
 
-function nextPage() {
-   btn.click();
-}
-
-
-async function exportToCvc() {
-   await giftcards.forEach((giftcard) => {
-      giftcard.children.forEach(row => exportData.push({
+async function nextPage() {
+   await giftcards.forEach((tbody) => {
+      tbody.children.forEach(row => exportData.push({
          "Cadeauboncode": `'${row.children[0].innerText}`,
          "Activeringsdatum": row.children[1].innerText,
          "Status": row.children[2].innerText,
          "Order-ID": row.children[3].innerText,
          "Saldo": row.children[4].innerText
 
-      }))
-   })
+      }));
+   });
+   btn.click();
 
+};
+
+
+async function exportToCvc() {
    await objectExporter({
       exportable: exportData,
       type: "xls",
@@ -68,7 +66,7 @@ async function exportToCvc() {
          "Activeringsdatum",
          "Status",
          "Order-ID",
-         "Saldo",
-      ],
-   })
-}
+         "Saldo"
+      ]
+   });
+};
