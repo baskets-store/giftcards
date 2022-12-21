@@ -7,6 +7,7 @@ document.getElementsByTagName("head")[0].appendChild(script);
 const btn = document.querySelector('[data-testid="table-pager-next"]');
 const table = document.querySelector("tbody");
 const giftcards = [];
+const exportData =[];
 
 const config = {
    childList: true,
@@ -17,19 +18,17 @@ const observer = new MutationObserver(() => getGiftcards());
 observer.observe(table, config)
 
 function getGiftcards() {
- if(table.children.forEach((child, index) => child.contains(document.getElementsByTagName('span')[index])) ==  false) {
-   giftcards.push(table)
-   if (btn.disabled == false) {
-      nextPage();
+   if (table.querySelector('a')) {
+      giftcards.push(table)
+      if (btn.disabled == false) {
+         nextPage();
+      } else {
+         exportToCvc()
+      }
+   } else {
+      console.log("skeleton, a isnt here")
    }
-   else {
-      exportToCvc()
-   }
-}
-else {
-   console.log("skeleton")
-}
-  
+
 }
 
 getGiftcards();
@@ -41,8 +40,12 @@ function nextPage() {
 
 
 async function exportToCvc() {
-   objectExporter({
-      exportable: giftcards,
+   await giftcards.forEach((giftcard) => {
+      giftcard.children.forEach((child) => exportData.push({child}));
+    });
+
+   await objectExporter({
+      exportable: exportData,
       type: "xls",
       fileName: "test",
       headers: [
@@ -54,3 +57,8 @@ async function exportToCvc() {
       ],
    })
 }
+
+// const newArray = []
+// exportData.forEach(data => newArray.push(data.child.innerText))
+
+
