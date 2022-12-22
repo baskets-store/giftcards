@@ -13,7 +13,7 @@ Wacht tot de gehele data op de website geladen is voordat je naar de volgende st
 ### step 4: En plak hier de code in de console tab
 Kopieer de onderstaande code volledig en plak dit in de console tab:
 
-https://github.com/baskets-store/giftcards/blob/main/app.js
+https://github.com/baskets-store/giftcards/blob/main/index.js
 
 Druk vervolgens op enter.
 
