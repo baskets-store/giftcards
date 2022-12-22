@@ -8,20 +8,12 @@ Wacht tot de gehele data op de website geladen is voordat je naar de volgende st
 
 ### step 2: Druk vervolgens op je rechtermuisknop en vervolgens op inspecteren.
 
-
 ### step 3: Ga naar de tab console
-De tab ziet er alsvolgt uit :
-
-https://github.com/baskets-store/giftcards/blob/main/img/console.png
 
 ### step 4: En plak hier de code in de console tab
 Kopieer de onderstaande code volledig en plak dit in de console tab:
 
 https://github.com/baskets-store/giftcards/blob/main/app.js
-
-Dat ziet er ongeveer zo uit:
-
-https://github.com/baskets-store/giftcards/blob/main/img/code-in-console.png 
 
 Druk vervolgens op enter.
 
